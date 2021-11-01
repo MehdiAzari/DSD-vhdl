@@ -1,16 +1,17 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity tb is
 end entity tb;
 
 architecture test of tb is
-	signal a : std_logic_vector (0 to 31) := (others => '0');
-	signal b : std_logic_vector (0 to 31) := (others => '0');
-	signal y : std_logic_vector (0 to 31) := (others => '0');
+	signal a : signed (0 to 31) := (others => '0');
+	signal b : signed (0 to 31) := (others => '0');
+	signal y : signed (0 to 31) := (others => '0');
 	signal cin : std_logic := '0';
 	signal cout : std_logic := '0';
-	signal func : std_logic_vector (0 to 3) := (others => '0');
+	signal func : signed (0 to 3) := (others => '0');
 begin
 	test_alu: entity work.alu(concurrent)
 		port map (
