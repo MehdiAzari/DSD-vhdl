@@ -2,6 +2,8 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.std_logic_unsigned.ALL;
 use ieee.numeric_std.all;
+use STD.textio.all;
+use ieee.std_logic_textio.all;
 
 ENTITY miniproc IS 
     PORT (
@@ -36,8 +38,26 @@ ARCHITECTURE behavioral OF miniproc IS
 
 	--SRAM
 	TYPE ram IS ARRAY (63 downto 0) OF std_logic_vector(31 DOWNTO 0);
-	signal sram	: ram;
+
+	function ram_init return ram is
+		variable temp : ram;
+		file inf : text open read_mode is "mem.txt";
+        variable text_line : line;
+        variable data : std_logic_vector(0 to 31) := (others => '0');
+		variable index : integer := 0;
+	begin
+		while not endfile(inf) loop
+            readline(inf, text_line);
+            read(text_line, data);
+            temp(index) := data;
+			index := index + 1;
+        end loop;
+		return temp;
+	end function;
+
+	signal sram	: ram := ram_init;
 BEGIN
+
 	cbus <= dout WHEN sel = "00" ELSE
 			B WHEN sel = "01" ELSE
 			AC;
