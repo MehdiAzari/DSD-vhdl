@@ -17,7 +17,7 @@ ARCHITECTURE behavioral OF miniproc_tb IS
 	END COMPONENT; 
 	SIGNAL opcode_t 	: std_logic_vector(3 DOWNTO 0);
 	SIGNAL clk_t 		: std_logic := '0';
-	SIGNAL rst_t 		: std_logic;
+	SIGNAL rst_t 		: std_logic := '1';
 BEGIN
 	cut: miniproc PORT MAP (clk_t, rst_t, opcode_t);
 	clk_t <= NOT clk_t AFTER 5 ns;
@@ -33,12 +33,12 @@ BEGIN
             readline(inf, text_line);
             read(text_line, w_time);
             wait for w_time;
-            read(text_line, data);
-            opcode_t <= data;
             read(text_line, data_bit);
             rst_t <= data_bit;
+            read(text_line, data);
+            opcode_t <= data;
         end loop;
-        wait for 40 ns;
+        wait for 100 ns;
         stop;
     end process sim;
 END behavioral;

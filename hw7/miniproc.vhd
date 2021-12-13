@@ -15,26 +15,26 @@ ARCHITECTURE behavioral OF miniproc IS
     TYPE state IS (T0, T1, T2, T3, T4, T5);
 	SIGNAL cur_state, nxt_state : state;
 	-- Control signals
-	SIGNAL a_ld 	: std_logic;
-	SIGNAL b_ld 	: std_logic;
-	SIGNAL c_ld 	: std_logic;
-	SIGNAL d_ld 	: std_logic;
-	SIGNAL ac_ld 	: std_logic;
-	SIGNAL wr 	: std_logic;
-	SIGNAL cbus : std_logic_vector(31 DOWNTO 0);
-	SIGNAL sel 	: std_logic_vector(1 DOWNTO 0);
-	SIGNAL func : std_logic_vector(2 DOWNTO 0);
+	SIGNAL a_ld 	: std_logic := '0';
+	SIGNAL b_ld 	: std_logic := '0';
+	SIGNAL c_ld 	: std_logic := '0';
+	SIGNAL d_ld 	: std_logic := '0';
+	SIGNAL ac_ld 	: std_logic := '0';
+	SIGNAL wr 	: std_logic := '0';
+	SIGNAL cbus : std_logic_vector(31 DOWNTO 0) := (others => '0');
+	SIGNAL sel 	: std_logic_vector(1 DOWNTO 0) := (others => '0');
+	SIGNAL func : std_logic_vector(2 DOWNTO 0) := (others => '0');
 	
-	SIGNAL Z 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL dout 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL shifted 	: std_logic_vector(31 DOWNTO 0);
+	SIGNAL Z 	: std_logic_vector(31 DOWNTO 0) := (others => '0');
+	SIGNAL dout 	: std_logic_vector(31 DOWNTO 0) := (others => '0');
+	SIGNAL shifted 	: std_logic_vector(31 DOWNTO 0) := (others => '0');
 
 	-- Registers
-	SIGNAL A 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL B 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL C 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL D 	: std_logic_vector(31 DOWNTO 0);
-	SIGNAL AC 	: std_logic_vector(31 DOWNTO 0);
+	SIGNAL A 	: std_logic_vector(31 DOWNTO 0) := (0 downto 0 => '1',others => '0');
+	SIGNAL B 	: std_logic_vector(31 DOWNTO 0) := (1 downto 0 => '1', others => '0');
+	SIGNAL C 	: std_logic_vector(31 DOWNTO 0) := (2 downto 0 => '1', others => '0');
+	SIGNAL D 	: std_logic_vector(31 DOWNTO 0) := (3 downto 0 => '1', others => '0');
+	SIGNAL AC 	: std_logic_vector(31 DOWNTO 0) := (4 downto 0 => '1', others => '0');
 
 	--SRAM
 	TYPE ram IS ARRAY (63 downto 0) OF std_logic_vector(31 DOWNTO 0);
